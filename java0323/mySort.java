@@ -4,19 +4,17 @@ public class mySort {
     //1.直接插入排序
     public static void insertSort(int[] arr) {
         int bound = 1;
-        // [0, bound) 是已排序区间.
-        // [bound, length) 待排序区间.
-        for (; bound < arr.length; bound++) {
+        for(;bound<=arr.length;bound++){
             int v = arr[bound];
-            int cur = bound - 1;
-            for (; cur >= 0; cur--) {
-                if (arr[cur] > v) {
-                    arr[cur + 1] = arr[cur];
-                } else {
+            int cur = bound-1;
+            for(;cur>=0;cur--){
+                if(arr[cur]>v){
+                    arr[cur+1] = arr[cur];
+                }else {
                     break;
                 }
             }
-            arr[cur + 1] = v;
+            arr[cur+1] = v;
         }
     }
 
@@ -27,6 +25,23 @@ public class mySort {
         while (gap >= 1) {
             _shellSort(arr, gap);
             gap = gap / 2;
+        }
+    }
+
+    public static void swap(int[] arr,int x,int y){
+        int tmp = x;
+        arr[x] = arr[y];
+        arr[y] = arr[tmp];
+    }
+
+    //冒泡
+    public static void bubbleSort(int[] arr){
+        for(int bound = 0;bound<arr.length;bound++){
+            for(int cur =arr.length-1;cur>bound;cur--){
+                if (arr[cur-1]>arr[cur]) {
+                    swap(arr,cur-1,cur);
+                }
+            }
         }
     }
 
