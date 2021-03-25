@@ -28,23 +28,6 @@ public class mySort {
         }
     }
 
-    public static void swap(int[] arr,int x,int y){
-        int tmp = x;
-        arr[x] = arr[y];
-        arr[y] = arr[tmp];
-    }
-
-    //冒泡
-    public static void bubbleSort(int[] arr){
-        for(int bound = 0;bound<arr.length;bound++){
-            for(int cur =arr.length-1;cur>bound;cur--){
-                if (arr[cur-1]>arr[cur]) {
-                    swap(arr,cur-1,cur);
-                }
-            }
-        }
-    }
-
     public static void _shellSort(int[] arr, int gap) {
         // 进行分组插排. 分组依据就是 gap.
         // gap 同时也表示分的组数.
@@ -64,5 +47,57 @@ public class mySort {
             }
             arr[cur + gap] = v;
         }
+    }
+
+    public static void swap(int[] arr,int x,int y){
+        int tmp = x;
+        arr[x] = arr[y];
+        arr[y] = arr[tmp];
+    }
+
+
+    //冒泡
+    public static void bubbleSort(int[] arr){
+        for(int bound = 0;bound<arr.length;bound++){
+            for(int cur =arr.length-1;cur>bound;cur--){
+                if (arr[cur-1]>arr[cur]) {
+                    swap(arr,cur-1,cur);
+                }
+            }
+        }
+    }
+
+    //选择排序
+    public static void selectSort(int[]arr){
+        //创建一个变量来分割已排区间和待排区间
+        int bound = 0;
+        for(;bound<arr.length;bound++){
+            for(int cur = bound+1;cur<arr.length;cur++){
+                if(arr[bound]>arr[cur]){
+                    swap(arr,bound,cur);
+                }
+            }
+        }
+    }
+
+    //堆排序？？？
+    public static void heapSort(int[] arr){
+        //堆排序
+        //先建立堆
+    }
+
+
+    //快速排序？？？
+    public static void quickSort(int[]arr){
+        //创建一个递归使用方法，明确指定在哪个区间进行递归
+        _quickSort(arr,0,arr.length-1)
+    }
+
+    public static void _quickSort(int[] arr, int left, int right) {
+        if(left>=right){
+            //说明该区间只有一个或没有元素
+            return;
+        }
+
     }
 }
