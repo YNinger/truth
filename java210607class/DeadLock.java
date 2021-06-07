@@ -1,0 +1,57 @@
+package java210607class;
+class Pen {
+    private String pen = "笔" ;
+    public String getPen() {
+        return pen;
+    }
+}
+class Book {
+    private String book = "本" ;
+    public String getBook() {
+        return book;
+    }
+}
+public class DeadLock {
+    private static Pen pen = new Pen() ;
+    private static Book book = new Book() ;
+    public static void main(String[] args) {
+        new DeadLock().deadLock();
+    }
+    public void deadLock() {
+        Thread thread1 = new Thread(new Runnable() { // 笔线程
+            @Override
+            public void run() {
+                try {
+                    synchronized (pen) {
+                        System.out.println(Thread.currentThread()+" :我有笔，我就不给你");
+                        Thread.sleep(1000);//如果注释掉线程1及线程2中的休眠，线程1可能book执行完了执行线程2才对book进行竞争
+                        synchronized (book) {
+                            System.out.println(Thread.currentThread()+" :把你的本给我！");
+                        }
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        },"Pen") ;
+
+        Thread thread2 = new Thread(new Runnable() { // 本子线程
+            @Override
+            public void run() {
+                try {
+                    synchronized (book) {
+                        System.out.println(Thread.currentThread()+" :我有本子，我就不给你！");
+                        Thread.sleep(1000);
+                        synchronized (pen) {
+                            System.out.println(Thread.currentThread()+" :把你的笔给我！");
+                        }
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        },"Book") ;
+        thread1.start();
+        thread2.start();
+    }
+}
